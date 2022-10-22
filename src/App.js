@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <TodoTemplate />
+      <TodoTemplate>hello</TodoTemplate>
     </div>
   );
 }
