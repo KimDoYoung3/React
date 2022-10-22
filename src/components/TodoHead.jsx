@@ -30,3 +30,5 @@ function TodoHead() {
         </TodoHeadBlock>
     )
 }
+
+export default TodoHead;
