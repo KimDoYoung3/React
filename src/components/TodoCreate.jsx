@@ -42,7 +42,7 @@ const CircleButton = styled.button`
             &:active {
                 background: #fa5252;
             }
-            transfrom: translate(-50%, 50%) rotate(45deg);
+            transform: translate(-50%, 50%) rotate(45deg);
         `}
 
     `;
