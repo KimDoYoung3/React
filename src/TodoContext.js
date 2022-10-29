@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useRef } from "react";
 
 const initialTodos = [
     {
@@ -18,7 +18,7 @@ function todoReducer(state, action) {
         case 'CREATE':
             return state.concat(action.todo);
         case 'TOGGLE':
-            return state.map(() => (
+            return state.map((todo) => (
                 action.id === todo.id ? { ...todo, done: !todo.done } : todo
             ));
         case 'REMOVE':
@@ -37,15 +37,26 @@ export function TodoProvider({ children }) {
     return (
         <TodoStateContext.Provider value={state}>
             <TodoDispatchContext.Provider value={dispatch}>
-                {children}
+                <TodoNextIdContext.Provider value={nextId}>
+                    {children}
+                </TodoNextIdContext.Provider>
             </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>
     );
 }
 
 export function useTodoState() {
-    return useContext(TodoStateContext);
+    const context = useContext(TodoStateContext);
+    if(!context) throw new Error('Cannot find TodoProvider');
+    return context;
 }
 export function useTodoDispatch() {
-    return useContext(TodoDispatchContext);
+    const context = useContext(TodoDispatchContext);
+    if(!context) throw new Error('Cannot find TodoProvider');
+    return context;
+}
+export function useTodoNextId() {
+    const context = useContext(TodoNextIdContext);
+    if(!context) throw new Error('Cannot find TodoProvider');
+    return context;
 }
